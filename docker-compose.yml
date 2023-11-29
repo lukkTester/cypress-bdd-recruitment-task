@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  app:
+    image: dog_shop_app
+    ports:
+      - 3000:3000
+  cypress:
+    image: cypress/included:13.3.3
+    environment:
+      - CYPRESS_BASE_URL=http://app:3000
+    depends_on:
+      - app
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: npx cypress run
